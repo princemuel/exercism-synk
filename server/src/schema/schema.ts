@@ -96,7 +96,6 @@ const mutation = new GraphQLObjectType({
         return client.save();
       },
     },
-
     deleteClient: {
       type: ClientType,
       args: {
@@ -126,6 +125,47 @@ const mutation = new GraphQLObjectType({
           clientId: args.clientId,
         });
         return project.save();
+      },
+    },
+
+    updateProject: {
+      type: ProjectType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: {
+          type: new GraphQLEnumType({
+            name: 'ProjectStatusUpdate',
+            values: {
+              fresh: { value: 'todo' },
+              progress: { value: 'doing' },
+              completed: { value: 'done' },
+            },
+          }),
+        },
+      },
+      resolve(parent, args: TProject) {
+        return Project.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              description: args.description,
+              status: args.status,
+            },
+          },
+          { new: true }
+        );
+      },
+    },
+    deleteProject: {
+      type: ProjectType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args: TProject) {
+        return Project.findByIdAndRemove(args.id);
       },
     },
   },
