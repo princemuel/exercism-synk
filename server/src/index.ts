@@ -1,6 +1,7 @@
 import dotenv from 'dotenv-safe';
 import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
+import { connect } from './config';
 import { schema } from './schema';
 
 dotenv.config();
@@ -8,10 +9,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3500;
 
+connect();
+
 app.use(
   '/graphql',
   graphqlHTTP({
-    // @ts-expect-error: the library definition is wrong
     schema,
     graphiql: process.env.NODE_ENV === 'development',
   })

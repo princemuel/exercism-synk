@@ -75,5 +75,3 @@ export const clients = [
     phone: '321-468-8887',
   },
 ];
-
-module.exports = { projects, clients };
