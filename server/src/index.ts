@@ -1,3 +1,4 @@
+import cors from 'cors';
 import dotenv from 'dotenv-safe';
 import express from 'express';
 import { graphqlHTTP } from 'express-graphql';
@@ -10,6 +11,8 @@ const app = express();
 const PORT = process.env.PORT || 3500;
 
 connect();
+
+app.use(cors());
 
 app.use(
   '/graphql',

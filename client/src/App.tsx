@@ -1,5 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-import { Header } from './components';
+import { Clients, Header } from './components';
 
 const client = new ApolloClient({
   uri: 'http://localhost:5000/graphql',
@@ -11,7 +11,7 @@ function App() {
       <ApolloProvider client={client}>
         <Header />
         <div className='container'>
-          <h1>Hello World</h1>
+          <Clients />
         </div>
       </ApolloProvider>
     </>
