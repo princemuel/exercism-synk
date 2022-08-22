@@ -1,4 +1,4 @@
-import logo from './assets/logo.png';
+import logo from '../assets/logo.png';
 type Props = {};
 
 const Header = (props: Props) => {
