@@ -18,7 +18,7 @@ const Clients = (props: Props) => {
 
   return (
     <>
-      <table className='table tabe-hover mt-3'>
+      <table className='table table-hover mt-3'>
         <thead>
           <tr>
             <th>Name</th>
