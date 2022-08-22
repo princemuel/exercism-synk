@@ -10,7 +10,7 @@ const ProjectSchema = new Schema<TProject>({
   },
   status: {
     type: String,
-    enum: ['Not Started', 'In Progress', 'Completed'],
+    enum: ['todo', 'doing', 'done'],
   },
   clientId: {
     type: Schema.Types.ObjectId,

@@ -1,4 +1,5 @@
 import {
+  GraphQLEnumType,
   GraphQLID,
   GraphQLList,
   GraphQLNonNull,
@@ -17,6 +18,15 @@ const ClientType = new GraphQLObjectType<IClient>({
     email: { type: GraphQLString },
     phone: { type: GraphQLString },
   }),
+});
+
+const ProjectStatus = new GraphQLEnumType({
+  name: 'ProjectStatus',
+  values: {
+    fresh: { value: 'todo' },
+    progress: { value: 'doing' },
+    completed: { value: 'done' },
+  },
 });
 const ProjectType = new GraphQLObjectType<TProject>({
   name: 'Project',
@@ -86,6 +96,7 @@ const mutation = new GraphQLObjectType({
         return client.save();
       },
     },
+
     deleteClient: {
       type: ClientType,
       args: {
@@ -93,6 +104,28 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parent, args: IClient) {
         return Client.findByIdAndRemove(args.id);
+      },
+    },
+
+    addProject: {
+      type: ProjectType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: new GraphQLNonNull(GraphQLString) },
+        status: {
+          type: ProjectStatus,
+          defaultValue: ProjectStatus.getValue('fresh'),
+        },
+        clientId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args: TProject) {
+        const project = new Project({
+          name: args.name,
+          description: args.description,
+          status: args.status,
+          clientId: args.clientId,
+        });
+        return project.save();
       },
     },
   },

@@ -10,7 +10,7 @@ export interface IProject {
   id: string;
   name: string;
   description: string;
-  status: 'In Progress' | 'Done';
+  status: 'todo' | 'doing' | 'done';
 }
 export interface TProject extends IProject {
   clientId: Types.ObjectId | string;
