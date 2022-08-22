@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+
 export interface IClient {
   id: string;
   name: string;
@@ -9,4 +11,7 @@ export interface IProject {
   name: string;
   description: string;
   status: 'In Progress' | 'Done';
+}
+export interface TProject extends IProject {
+  clientId: Types.ObjectId | string;
 }

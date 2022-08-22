@@ -1,9 +1,5 @@
-import { model, Schema, Types } from 'mongoose';
-import { IProject } from '~src/types';
-
-interface TProject extends IProject {
-  clientId: Types.ObjectId;
-}
+import { model, Schema } from 'mongoose';
+import { TProject } from '~src/types';
 
 const ProjectSchema = new Schema<TProject>({
   name: {
