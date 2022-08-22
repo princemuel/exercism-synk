@@ -7,7 +7,6 @@ export interface IClient {
 export interface IProject {
   id: string;
   name: string;
-  clientId: string;
   description: string;
   status: 'In Progress' | 'Done';
 }
