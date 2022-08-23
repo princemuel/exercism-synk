@@ -9,4 +9,5 @@ export interface IProject {
   name: string;
   description: string;
   status: 'todo' | 'doing' | 'done';
+  client: IClient;
 }

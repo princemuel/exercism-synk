@@ -28,6 +28,7 @@ const ProjectStatus = new GraphQLEnumType({
     completed: { value: 'done' },
   },
 });
+
 const ProjectType = new GraphQLObjectType<TProject>({
   name: 'Project',
   fields: () => ({
@@ -96,12 +97,18 @@ const mutation = new GraphQLObjectType({
         return client.save();
       },
     },
+    // Delete a client
     deleteClient: {
       type: ClientType,
       args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent, args: IClient) {
+      resolve(parent, args) {
+        Project.find({ clientId: args.id }).then((projects) => {
+          projects.forEach((project) => {
+            project.remove();
+          });
+        });
         return Client.findByIdAndRemove(args.id);
       },
     },
