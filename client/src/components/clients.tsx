@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/client';
 import { GET_CLIENTS } from '../queries';
 import { IClient } from '../types';
 import { ClientRow } from './client-row';
-import { Spinner } from './spinner';
 
 type Props = {};
 
@@ -13,7 +12,7 @@ interface IClientData {
 const Clients = (props: Props) => {
   const { loading, data, error } = useQuery<IClientData>(GET_CLIENTS);
 
-  if (loading) return <Spinner />;
+  if (loading) return null;
   if (error) return <p>something went wrong..</p>;
 
   return (
