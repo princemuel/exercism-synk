@@ -1,41 +1,23 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { Route, Routes } from 'react-router-dom';
 import { AddClient, Clients, Header, Projects } from './components';
-
-const cache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        clients: {
-          merge(existing, incoming) {
-            return incoming;
-          },
-        },
-        projects: {
-          merge(existing, incoming) {
-            return incoming;
-          },
-        },
-      },
-    },
-  },
-});
-
-const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql',
-  cache: cache,
-});
 
 function App() {
   return (
     <>
-      <ApolloProvider client={client}>
-        <Header />
-        <div className='container'>
-          <AddClient />
-          <Projects />
-          <Clients />
-        </div>
-      </ApolloProvider>
+      <Routes>
+        <Route path='/' element={<Header />}>
+          <Route
+            index
+            element={
+              <div className='container'>
+                <AddClient />
+                <Projects />
+                <Clients />
+              </div>
+            }
+          />
+        </Route>
+      </Routes>
     </>
   );
 }
