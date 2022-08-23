@@ -8,23 +8,26 @@ type Props = {
   client: IClient;
 };
 
+// , { id: IClient['id'] } <{clients: IClient[]}>
 const ClientRow = ({ client }: Props) => {
-  const [deleteClient] = useMutation<IClient, { id: IClient['id'] }>(
-    DELETE_CLIENT,
-    {
-      variables: { id: client.id },
-      // refetchQueries: [{ query: GET_CLIENTS }],
-      update(cache, { data: { deleteClient } }) {
-        const { clients } = cache.readQuery({ query: GET_CLIENTS });
-        cache.writeQuery({
-          query: GET_CLIENTS,
-          data: {
-            clients: clients.filter((client) => client.id !== deleteClient.id),
-          },
-        });
-      },
-    }
-  );
+  const [deleteClient] = useMutation<IClient>(DELETE_CLIENT, {
+    variables: { id: client.id },
+    //  refetchQueries: [{ query: GET_CLIENTS },],
+    //@ts-expect-error
+    update(cache, { data: { deleteClient } }) {
+      //@ts-expect-error
+      const { clients } = cache.readQuery({
+        query: GET_CLIENTS,
+      });
+      cache.writeQuery({
+        query: GET_CLIENTS,
+        data: {
+          //@ts-expect-error
+          clients: clients.filter((client) => client.id !== deleteClient.id),
+        },
+      });
+    },
+  });
 
   return (
     <tr>
