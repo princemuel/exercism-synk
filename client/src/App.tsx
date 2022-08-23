@@ -1,21 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
-import { AddClient, Clients, Header, Projects } from './components';
+import { Header } from './components';
+import { Home, Missing } from './pages';
 
 function App() {
   return (
     <>
       <Routes>
         <Route path='/' element={<Header />}>
-          <Route
-            index
-            element={
-              <div className='container'>
-                <AddClient />
-                <Projects />
-                <Clients />
-              </div>
-            }
-          />
+          <Route index element={<Home />} />
+
+          <Route path='*' element={<Missing />} />
         </Route>
       </Routes>
     </>

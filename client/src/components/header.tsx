@@ -14,7 +14,10 @@ const Header = () => {
           </a>
         </div>
       </nav>
-      <Outlet />
+
+      <div className='container'>
+        <Outlet />
+      </div>
     </>
   );
 };
