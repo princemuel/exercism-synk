@@ -1,8 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import logo from '../assets/logo.png';
-type Props = {};
 
-const Header = (props: Props) => {
+const Header = () => {
   return (
     <>
       <nav className='navbar bg-light mb-4 p-0'>
