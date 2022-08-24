@@ -14,7 +14,7 @@ export const AddProject = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [clientId, setClientId] = useState('');
-  const [status, setStatus] = useState('new');
+  const [status, setStatus] = useState('fresh');
 
   const [addProject] = useMutation(ADD_PROJECT, {
     variables: { name, description, clientId, status },
@@ -28,10 +28,9 @@ export const AddProject = () => {
     },
   });
 
-  // Get Clients for select
   const { loading, error, data } = useQuery<IClientData>(GET_CLIENTS);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (name === '' || description === '' || status === '') {
@@ -43,7 +42,7 @@ export const AddProject = () => {
 
     setName('');
     setDescription('');
-    setStatus('new');
+    setStatus('fresh');
     setClientId('');
   };
 
@@ -87,7 +86,7 @@ export const AddProject = () => {
                   ></button>
                 </div>
                 <div className='modal-body'>
-                  <form onSubmit={onSubmit}>
+                  <form onSubmit={handleSubmit}>
                     <div className='mb-3'>
                       <label className='form-label'>Name</label>
                       <input
