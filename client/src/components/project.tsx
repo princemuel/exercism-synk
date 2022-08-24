@@ -4,6 +4,7 @@ import { GET_PROJECT } from '../queries';
 import { IProject } from '../types';
 import { ClientInfo } from './client-info';
 import { DeleteProject } from './delete-project';
+import { EditProject } from './edit-project';
 import { Spinner } from './spinner';
 
 type Props = {};
@@ -35,6 +36,7 @@ const Project = (props: Props) => {
           <p className='lead'>{data.project.status}</p>
 
           {data.project.client && <ClientInfo client={data.project.client} />}
+          <EditProject project={data.project} />
           <DeleteProject projectId={data.project.id} />
         </article>
       )}
