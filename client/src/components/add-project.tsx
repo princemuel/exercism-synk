@@ -4,10 +4,13 @@ import { FaList } from 'react-icons/fa';
 // import { ADD_PROJECT } from '../mutations';
 import { ADD_PROJECT } from '../mutations';
 import { GET_CLIENTS, GET_PROJECTS } from '../queries';
-import { IClient } from '../types';
+import { IClient, IProject } from '../types';
 
 interface IClientData {
   clients: IClient[];
+}
+interface IProjectData {
+  projects: IProject[];
 }
 
 export const AddProject = () => {
@@ -19,11 +22,13 @@ export const AddProject = () => {
   const [addProject] = useMutation(ADD_PROJECT, {
     variables: { name, description, clientId, status },
     update(cache, { data: { addProject } }) {
-      // @ts-expect-error
-      const { projects } = cache.readQuery({ query: GET_PROJECTS });
+      const { projects } = cache.readQuery({
+        query: GET_PROJECTS,
+      }) as IProjectData;
+
       cache.writeQuery({
         query: GET_PROJECTS,
-        data: { projects: [...projects, addProject] },
+        data: { projects: [...projects, addProject] as IProject[] },
       });
     },
   });
